@@ -18,6 +18,8 @@ struct ContentView: View {
                     Wheel(startAngle: .degrees(Double(index) * 45), endAngle: .degrees(Double(index + 1) * 45))
                         .fill(colorSegment.color)
                         .rotationEffect(.degrees(rotationAngle), anchor: .center)
+                    Text(colorSegment.label)
+                        .rotationEffect(.degrees(-Double(index) * 45), anchor: .center)
                 }
             }
             Button("Spin") {
@@ -31,14 +33,14 @@ struct ContentView: View {
     }
 
     let colorSegments: [ColorSegment] = [
-        ColorSegment(color: .red),
-        ColorSegment(color: .blue),
-        ColorSegment(color: .green),
-        ColorSegment(color: .yellow),
-        ColorSegment(color: .purple),
-        ColorSegment(color: .orange),
-        ColorSegment(color: .pink),
-        ColorSegment(color: .mint)
+        ColorSegment(color: .red, label: "EAT BANANA 1"),
+        ColorSegment(color: .blue, label: "EAT BANANA 2"),
+        ColorSegment(color: .green, label: "EAT BANANA 3"),
+        ColorSegment(color: .yellow, label: "EAT BANANA 4"),
+        ColorSegment(color: .purple, label: "EAT BANANA 5"),
+        ColorSegment(color: .orange, label: "EAT BANANA 6"),
+        ColorSegment(color: .pink, label: "EAT BANANNA 7"),
+        ColorSegment(color: .mint, label: "EAT BANANA 8")
     ]
 }
 
@@ -64,4 +66,5 @@ struct ContentView_Previews: PreviewProvider {
 
 struct ColorSegment {
     let color: Color
+    let label: String
 }
