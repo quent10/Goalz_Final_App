@@ -8,53 +8,106 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var rotationAngle: Double = 0
+    @State var rotation: CGFloat = 0.0
+    @State var segments: [String] = ["Eat 6 banane", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"]
+    @State var textFields: [String] = ["Eat 6 banane", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"]
 
     var body: some View {
-        VStack {
-            ZStack {
-                ForEach(0..<8, id: \.self) { index in
-                    let colorSegment = colorSegments[index % colorSegments.count]
-                    Wheel(startAngle: .degrees(Double(index) * 45), endAngle: .degrees(Double(index + 1) * 45))
-                        .fill(colorSegment.color)
-                        .rotationEffect(.degrees(rotationAngle), anchor: .center)
-                    Text(colorSegment.label)
-                        .rotationEffect(.degrees(-Double(index) * 45), anchor: .center)
+        ScrollView {
+            VStack {
+                HStack {
+                    Spacer()
+                    Text("Select Your Goal")
+                        .font(.title)
+                    Spacer()
                 }
-            }
-            Button("Spin") {
-                withAnimation(Animation.linear(duration: 2)) {
-                    rotationAngle = Double.random(in: 360...1440)
-                }
-            }
-            .font(.title)
-        }
-        .padding()
-    }
 
-    let colorSegments: [ColorSegment] = [
-        ColorSegment(color: .red, label: "EAT BANANA 1"),
-        ColorSegment(color: .blue, label: "EAT BANANA 2"),
-        ColorSegment(color: .green, label: "EAT BANANA 3"),
-        ColorSegment(color: .yellow, label: "EAT BANANA 4"),
-        ColorSegment(color: .purple, label: "EAT BANANA 5"),
-        ColorSegment(color: .orange, label: "EAT BANANA 6"),
-        ColorSegment(color: .pink, label: "EAT BANANNA 7"),
-        ColorSegment(color: .mint, label: "EAT BANANA 8")
-    ]
+                Wheel(rotation: $rotation, segments: segments)
+                    .frame(width: 350, height: 350)
+                    .rotationEffect(.radians(rotation))
+                    .animation(.easeInOut(duration: 2.0), value: rotation)
+
+                Button("Spin") {
+                    let randomAmount = Double(Int.random(in: 7..<15))
+                    rotation += CGFloat(randomAmount)
+                }
+                .buttonStyle(SpinButtonStyle())
+                .padding(.top, 20)
+
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(0..<5, id: \.self) { index in
+                        TextField("Segment \(index + 1)", text: $textFields[index])
+                            .padding()
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .onChange(of: textFields[index]) { newValue in
+                                if !newValue.isEmpty {
+                                    segments[index] = newValue
+                                }
+                            }
+                    }
+                }
+            }
+            .padding()
+        }
+    }
 }
 
-struct Wheel: Shape {
-    var startAngle: Angle
-    var endAngle: Angle
-    func path(in rect: CGRect) -> Path {
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        let radius = min(rect.width, rect.height) / 2
-        var path = Path()
-        path.move(to: center)
-        path.addArc(center: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
-        path.closeSubpath()
-        return path
+struct Wheel: View {
+    @Binding var rotation: CGFloat
+    var segments: [String]
+
+    var body: some View {
+        GeometryReader { proxy in
+            ZStack {
+                ForEach(segments.indices, id: \.self) { index in
+                    ZStack {
+                        Circle()
+                            .inset(by: proxy.size.width / 4)
+                            .trim(from: CGFloat(index) * segmentSize, to: CGFloat(index + 1) * segmentSize)
+                            .stroke(Color.all[index % Color.all.count], style: StrokeStyle(lineWidth: proxy.size.width / 2))
+                            .rotationEffect(.radians(Double(index) * (2 * .pi) / Double(segments.count)))
+                            .opacity(0.6)
+                        label(text: segments[index], index: CGFloat(index), proxy: proxy)
+                    }
+                }
+            }
+        }
+    }
+
+    var segmentSize: CGFloat {
+        segments.isEmpty ? 1 : 1 / CGFloat(segments.count)
+    }
+
+    func label(text: String, index: CGFloat, proxy: GeometryProxy) -> some View {
+        let radius = proxy.size.width / (4 * 0.9)
+        let angle = 2 * .pi * Double(index) / Double(segments.count)
+        let x = cos(angle) * radius
+        let y = sin(angle) * radius
+
+        return Text(text)
+            .rotationEffect(.radians(rotation(index: index) - .pi / 6))
+            .offset(x: x - 10 , y: y)
+    }
+
+    func rotation(index: CGFloat) -> CGFloat {
+        (.pi * (2 * segmentSize * (CGFloat(index) + 0.5)))
+    }
+}
+
+struct SpinButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(8)
+            .opacity(0.8)
+    }
+}
+
+extension Color {
+    static var all: [Color] {
+        [Color.yellow, .green, .pink, .cyan, .orange, .mint, .teal, .blue]
     }
 }
 
@@ -62,9 +115,4 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
-}
-
-struct ColorSegment {
-    let color: Color
-    let label: String
 }
