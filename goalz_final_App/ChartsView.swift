@@ -1,5 +1,5 @@
 //
-//  Charts.swift
+//  ChartsView.swift
 //  goalz_final_App
 //
 //  Created by Quentin Wingard on 11/6/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct LineChartExampleView: View {
+struct ChartsView: View {
     let catData = PetData.catExamples
     let dogData = PetData.dogExamples
     
@@ -42,8 +42,8 @@ struct LineChartExampleView: View {
     }
 }
 
-struct LineChartExampleView_Previews: PreviewProvider {
+struct ChartsView_Previews: PreviewProvider {
     static var previews: some View {
-        LineChartExampleView()
+        ChartsView()
     }
 }
