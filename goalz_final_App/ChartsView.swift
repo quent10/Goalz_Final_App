@@ -9,12 +9,12 @@ import SwiftUI
 import Charts
 
 struct ChartsView: View {
-    let catData = PetData.catExamples
-    let dogData = PetData.dogExamples
+    let catData = ActivityData.catExamples
+    let dogData = ActivityData.dogExamples
     
-    var data: [(type: String, petData: [PetData])] {
-        [(type: "Run", petData: catData),
-         (type: "Swim", petData: dogData)]
+    var data: [(type: String, activityData: [ActivityData])] {
+        [(type: "Run", activityData: catData),
+         (type: "Swim", activityData: dogData)]
     }
     
     var body: some View {
@@ -25,12 +25,12 @@ struct ChartsView: View {
                     .padding()
                 
                 Chart(data, id: \.type) { dataSeries in
-                    ForEach(dataSeries.petData) { data in
-                        LineMark(x: .value("Year", data.year),
-                                 y: .value("Population", data.population))
+                    ForEach(dataSeries.activityData) { data in
+                        LineMark(x: .value("Time", data.year),
+                                 y: .value("Activity", data.population))
                     }
-                    .foregroundStyle(by: .value("Pet type", dataSeries.type))
-                    .symbol(by: .value("Pet type", dataSeries.type))
+                    .foregroundStyle(by: .value("Activity type", dataSeries.type))
+                    .symbol(by: .value("Activity type", dataSeries.type))
                 }
                 .chartXScale(domain: 1...7)
                 .chartXAxisLabel("Days")

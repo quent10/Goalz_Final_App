@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PetData: Identifiable, Equatable {
+struct ActivityData: Identifiable, Equatable {
     let year: Int
     
     
@@ -15,16 +15,16 @@ struct PetData: Identifiable, Equatable {
     
     var id: Int { year }
     
-    static var catExamples: [PetData] {
-        [PetData(year: 1, population: 0),
-         PetData(year: 2, population: 1),
-         PetData(year: 3, population: 2),
-         PetData(year: 4, population: 2)]
+    static var catExamples: [ActivityData] {
+        [ActivityData(year: 1, population: 0),
+         ActivityData(year: 2, population: 1),
+         ActivityData(year: 3, population: 2),
+         ActivityData(year: 4, population: 2)]
     }
-    static var dogExamples: [PetData] {
-        [PetData(year: 1, population: 1),
-         PetData(year: 2, population: 2),
-         PetData(year: 3, population: 3),
-         PetData(year: 4, population: 4)]
+    static var dogExamples: [ActivityData] {
+        [ActivityData(year: 1, population: 1),
+         ActivityData(year: 2, population: 2),
+         ActivityData(year: 3, population: 3),
+         ActivityData(year: 4, population: 4)]
     }
 }
