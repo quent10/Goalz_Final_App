@@ -5,18 +5,22 @@
 //  Created by Quentin Wingard on 11/23/23.
 //
 
-import Foundation
-import UserNotifications
+import SwiftUI
 
-class NotificationHandler {
-    func askPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.badge,.sound], completionHandler: { success, error in
-            if success {
-                print ("Access granted!")
+struct LocalNotificationsApp: App{
+    
+    init() {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound, .badge]) {
+            result, error in
+            if let error = error {
+                print(error)
             }
-            else if let error  = error{
-                print(error.localizedDescription)
-            }
-        })
+        }
+    }
+    var body: some Scene {
+        WindowGroup{
+            SomeView()
+        }
     }
 }

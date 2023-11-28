@@ -11,43 +11,74 @@ struct ContentView: View {
     @State var rotation: CGFloat = 0.0
     @State var segments: [String] = ["Eat 6 banane", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"]
     @State var textFields: [String] = ["Eat 6 banane", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"]
+    
+    @State private var selectedTab = 0
 
     var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Spacer()
-                    Text("Select Your Goal")
-                        .font(.title)
-                    Spacer()
-                }
+        VStack {
+            ScrollView {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Text("Select Your Goal")
+                            .font(.title)
+                        Spacer()
+                    }
 
-                Wheel(rotation: $rotation, segments: segments)
-                    .frame(width: 350, height: 350)
-                    .rotationEffect(.radians(rotation))
-                    .animation(.easeInOut(duration: 2.0), value: rotation)
+                    Wheel(rotation: $rotation, segments: segments)
+                        .frame(width: 350, height: 350)
+                        .rotationEffect(.radians(rotation))
+                        .animation(.easeInOut(duration: 2.0), value: rotation)
 
-                Button("Spin") {
-                    let randomAmount = Double(Int.random(in: 7..<15))
-                    rotation += CGFloat(randomAmount)
-                }
-                .buttonStyle(SpinButtonStyle())
-                .padding(.top, 20)
+                    Button("Spin") {
+                        let randomAmount = Double(Int.random(in: 7..<15))
+                        rotation += CGFloat(randomAmount)
+                    }
+                    .buttonStyle(SpinButtonStyle())
+                    .padding(.top, 20)
 
-                VStack(alignment: .leading, spacing: 10) {
-                    ForEach(0..<5, id: \.self) { index in
-                        TextField("Segment \(index + 1)", text: $textFields[index])
-                            .padding()
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .onChange(of: textFields[index]) { newValue in
-                                if !newValue.isEmpty {
-                                    segments[index] = newValue
+                    VStack(alignment: .leading, spacing: 10) {
+                        ForEach(0..<5, id: \.self) { index in
+                            TextField("Segment \(index + 1)", text: $textFields[index])
+                                .padding()
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .onChange(of: textFields[index]) { newValue in
+                                    if !newValue.isEmpty {
+                                        segments[index] = newValue
+                                    }
                                 }
-                            }
+                        }
                     }
                 }
+                .padding()
             }
-            .padding()
+            
+            // TabView for navigation
+            TabView(selection: $selectedTab) {
+                SomeView()
+                    .tag(0)
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
+                
+                ContentView()
+                    .tag(1)
+                    .tabItem {
+                        Label("Progress", systemImage: "flask")
+                    }
+                
+                ChartsView()
+                    .tag(2)
+                    .tabItem {
+                        Label("Goal", systemImage: "circle")
+                    }
+                DateSelectionView()
+                    .tag(3)
+                    .tabItem {
+                        Label("Time", systemImage: "calendar")
+                    }
+            }
+            .accentColor(.blue)
         }
     }
 }
@@ -86,7 +117,7 @@ struct Wheel: View {
 
         return Text(text)
             .rotationEffect(.radians(rotation(index: index) - .pi / 6))
-            .offset(x: x - 10 , y: y)
+            .offset(x: x - 0 , y: y)
     }
 
     func rotation(index: CGFloat) -> CGFloat {

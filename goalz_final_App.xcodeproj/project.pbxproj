@@ -17,6 +17,7 @@
 		70C42DE62B0FED0000A7FB63 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C42DE52B0FED0000A7FB63 /* NotificationHandler.swift */; };
 		70E898C42B03313800A4EBBF /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E898C32B03313800A4EBBF /* ChartsView.swift */; };
 		70E898C62B03316E00A4EBBF /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E898C52B03316E00A4EBBF /* ChartsView.swift */; };
+		70ED7E5E2B1679AC00783EC8 /* AllViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ED7E5D2B1679AC00783EC8 /* AllViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		70C42DE52B0FED0000A7FB63 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		70E898C32B03313800A4EBBF /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
 		70E898C52B03316E00A4EBBF /* ChartsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChartsView.swift; path = goalz_final_App/ChartsView.swift; sourceTree = SOURCE_ROOT; };
+		70ED7E5D2B1679AC00783EC8 /* AllViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllViews.swift; sourceTree = "<group>"; };
+		70ED7E5F2B16829B00783EC8 /* goalz-final-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "goalz-final-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,11 +66,13 @@
 		703718A22AE9A7570022A832 /* goalz_final_App */ = {
 			isa = PBXGroup;
 			children = (
+				70ED7E5F2B16829B00783EC8 /* goalz-final-App-Info.plist */,
 				7037092A2AFD815F0064F467 /* MainViewController.swift */,
 				703718A32AE9A7570022A832 /* goalz_final_AppApp.swift */,
 				703718A52AE9A7570022A832 /* ContentView.swift */,
 				70E898C32B03313800A4EBBF /* ChartsView.swift */,
 				7019E36B2B069B0400F43F3E /* DateSelection.swift */,
+				70ED7E5D2B1679AC00783EC8 /* AllViews.swift */,
 				7027A7F62AFC836B00234466 /* ActivityData.swift */,
 				70C42DE52B0FED0000A7FB63 /* NotificationHandler.swift */,
 				703718A72AE9A7580022A832 /* Assets.xcassets */,
@@ -156,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				703718A62AE9A7570022A832 /* ContentView.swift in Sources */,
+				70ED7E5E2B1679AC00783EC8 /* AllViews.swift in Sources */,
 				70C42DE62B0FED0000A7FB63 /* NotificationHandler.swift in Sources */,
 				703718A42AE9A7570022A832 /* goalz_final_AppApp.swift in Sources */,
 				7027A7F72AFC836B00234466 /* ActivityData.swift in Sources */,
@@ -299,6 +305,7 @@
 				DEVELOPMENT_TEAM = SK4T72CZ9D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "goalz-final-App-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -328,6 +335,7 @@
 				DEVELOPMENT_TEAM = SK4T72CZ9D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "goalz-final-App-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -37,10 +37,14 @@ struct ChartsView: View {
                 .chartYAxisLabel("# Completions")
                 .aspectRatio(1, contentMode: .fit)
                 .padding()
+                
+                
             }
         }
     }
 }
+
+
 
 struct ChartsView_Previews: PreviewProvider {
     static var previews: some View {
