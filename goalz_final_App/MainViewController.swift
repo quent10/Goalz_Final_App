@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications // Import UserNotifications framework
 
 enum NotificationAction: String {
     case dismiss
@@ -56,15 +57,27 @@ struct SomeView: View {
                 Button("Schedule a Notification"){
                     let center = UNUserNotificationCenter.current()
                     
-                    //Content
+                    // Request permission to show notifications
+                    center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                        if granted {
+                            print("Notification permission granted")
+                        } else {
+                            print("Notification permission denied")
+                        }
+                    }
+                    
+                    // Content for the notification
                     let content = UNMutableNotificationContent()
                     content.title = "Complete your goal!"
                     content.body = "You have 1 day left of your goal. Push hard!"
-                    //
+                    
+                    // Trigger for the notification after 5 seconds
                     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5.0, repeats: false)
-                    //Request
-                    let request = UNNotificationRequest( identifier: "Identifier", content: content, trigger: trigger)
-                    //Define actions
+                    
+                    // Request to display the notification
+                    let request = UNNotificationRequest(identifier: "Identifier", content: content, trigger: trigger)
+                    
+                    // Define actions for the notification
                     let dismiss = UNNotificationAction(identifier: NotificationAction.dismiss.rawValue, title: "Dismiss", options: [])
                     
                     let reminder = UNNotificationAction(identifier: NotificationAction.reminder.rawValue, title: "Reminder", options: [])
@@ -72,10 +85,13 @@ struct SomeView: View {
                     let generalCategory = UNNotificationCategory(identifier: NotificationCategory.general.rawValue, actions: [dismiss, reminder], intentIdentifiers: [], options: [])
                     
                     center.setNotificationCategories([generalCategory])
-                    //Add requests
-                    center.add(request) {error in
+                    
+                    // Add the request to show the notification
+                    center.add(request) { error in
                         if let error = error {
-                            print(error)
+                            print("Error adding notification request: \(error)")
+                        } else {
+                            print("Notification request added successfully")
                         }
                     }
                 }
