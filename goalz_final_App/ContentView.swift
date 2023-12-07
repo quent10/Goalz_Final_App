@@ -9,31 +9,44 @@ import SwiftUI
 
 struct ContentView: View {
     @State var rotation: CGFloat = 0.0
-    @State var segments: [String] = ["Eat 6 banane", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"]
-    @State var textFields: [String] = ["Eat 6 banane", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"]
+    @State var segments: [String] = ["Eat 6 banane", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"] // make it display on wheel
+    @State var textFields: [String] = [" Eat 6 banana", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"] // make it display in text box
+    @State var selectedGoal: String = "" // state variable to store the selected text
 
     var body: some View {
         NavigationView {
             VStack {
+                
                 ScrollView {
                     VStack {
                         Spacer()
-                        Text("Select Your Goal")
+                        Text("Select Your Goal") // Title
                             .font(.title)
                         Spacer()
+                        
+                        // Display the selected text in red beneath the title
+                        if !selectedGoal.isEmpty {
+                            Text(selectedGoal)
+                                .foregroundColor(.red)
+                        }
 
+                        // Wheel view for displaying segments
                         Wheel(rotation: $rotation, segments: segments)
                             .frame(width: 350, height: 350)
                             .rotationEffect(.radians(rotation))
                             .animation(.easeInOut(duration: 2.0), value: rotation)
 
+                        // Spin button to select a random text field
                         Button("Spin") {
+                            let randomIndex = Int.random(in: 0..<textFields.count)
+                            selectedGoal = textFields[randomIndex] // Update selectedGoal with a random field
                             let randomAmount = Double(Int.random(in: 7..<15))
                             rotation += CGFloat(randomAmount)
                         }
                         .buttonStyle(SpinButtonStyle())
                         .padding(.top, 20)
 
+                        // TextFields for user input
                         VStack(alignment: .leading, spacing: 10) {
                             ForEach(0..<5, id: \.self) { index in
                                 TextField("Segment \(index + 1)", text: $textFields[index])
@@ -56,6 +69,7 @@ struct ContentView: View {
         }
     }
 
+    // Custom back button
     var backButton: some View {
         NavigationLink(destination: SomeView()) {
             Image(systemName: "arrow.left") // Back arrow icon

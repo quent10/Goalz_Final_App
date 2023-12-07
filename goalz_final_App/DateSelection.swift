@@ -11,15 +11,21 @@ struct DateSelectionView: View {
     @State var rotation: CGFloat = 0.0
     @State var segments: [String] = ["1 Week", "4 Days", "1 month", "1 day", "6 months"]
     @State var textFields: [String] = ["1 Week", "4 Days", "1 month", "1 day", "6 months"]
+    @State var selectedTime: String = ""
 
     var body: some View {
         ScrollView {
             VStack {
-                HStack {
+                VStack {
                     Spacer()
                     Text("Select Your Time Frame")
                         .font(.title)
                     Spacer()
+                    
+                    if !selectedTime.isEmpty {
+                        Text(selectedTime)
+                            .foregroundColor(.red)
+                    }
                 }
 
                 Wheel(rotation: $rotation, segments: segments)
@@ -30,6 +36,9 @@ struct DateSelectionView: View {
                 Button("Spin") {
                     let randomAmount = Double(Int.random(in: 7..<15))
                     rotation += CGFloat(randomAmount)
+                    
+                    let randomIndex = Int.random(in: 0..<textFields.count)
+                    selectedTime = textFields[randomIndex]
                 }
                 .buttonStyle(SpinButtonStyle())
                 .padding(.top, 20)
