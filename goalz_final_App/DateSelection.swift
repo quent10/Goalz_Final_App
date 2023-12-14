@@ -28,7 +28,7 @@ struct DateSelectionView: View {
                     }
                 }
 
-                Wheel(rotation: $rotation, segments: segments)
+                Roue(rotation: $rotation, segments: segments)
                     .frame(width: 350, height: 350)
                     .rotationEffect(.radians(rotation))
                     .animation(.easeInOut(duration: 2.0), value: rotation)
@@ -40,7 +40,7 @@ struct DateSelectionView: View {
                     let randomIndex = Int.random(in: 0..<textFields.count)
                     selectedTime = textFields[randomIndex]
                 }
-                .buttonStyle(SpinButtonStyle())
+                .buttonStyle(SpunButtonStyle())
                 .padding(.top, 20)
 
                 VStack(alignment: .leading, spacing: 10) {
@@ -58,6 +58,7 @@ struct DateSelectionView: View {
             }
             .padding()
         }
+        .background(Color.gray.edgesIgnoringSafeArea(.all)) // Set the background color to grey for the entire view
     }
 }
 
@@ -73,7 +74,7 @@ struct Roue: View {
                         Circle()
                             .inset(by: proxy.size.width / 4)
                             .trim(from: CGFloat(index) * segmentSize, to: CGFloat(index + 1) * segmentSize)
-                            .stroke(Color.all[index % Color.all.count], style: StrokeStyle(lineWidth: proxy.size.width / 2))
+                            .stroke(Color.all_of_em[index % Color.all_of_em.count], style: StrokeStyle(lineWidth: proxy.size.width / 2))
                             .rotationEffect(.radians(Double(index) * (2 * .pi) / Double(segments.count)))
                             .opacity(0.6)
                         label(text: segments[index], index: CGFloat(index), proxy: proxy)
@@ -125,3 +126,4 @@ struct DateSelection_Previews: PreviewProvider {
         DateSelectionView()
     }
 }
+

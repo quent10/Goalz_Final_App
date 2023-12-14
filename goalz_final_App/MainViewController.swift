@@ -9,9 +9,44 @@ import SwiftUI
 import UserNotifications
 
 struct SomeView: View {
-    @State private var selectedDate = Date() // State variable to hold the selected date
+    @State private var selectedDate = Date()
     @State private var notificationTitle = ""
     @State private var notificationBody = ""
+    @State private var showAlert = false // State to control the alert visibility
+    
+    var body: some View {
+        TabView {
+            ContentView()
+                .tabItem {
+                    Label("Goal", systemImage: "circle")
+                }
+            
+            ChartsView()
+                .tabItem {
+                    Label("Progress", systemImage: "flask")
+                }
+            SomeView()
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
+            DateSelectionView()
+                .tabItem {
+                    Label("Date", systemImage: "calendar")
+                }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(notificationTitle.isEmpty ? "Walk" : notificationTitle),
+                  message: Text(notificationBody.isEmpty ? "Go for a 5 mile walk?" : notificationBody),
+                  dismissButton: .default(Text("OK")))
+        }
+    }
+}
+
+struct ScheduleView: View {
+    @Binding var selectedDate: Date
+    @Binding var notificationTitle: String
+    @Binding var notificationBody: String
+    @Binding var showAlert: Bool
 
     var body: some View {
         NavigationView {
@@ -23,7 +58,6 @@ struct SomeView: View {
                         .padding(.top, 20)
                         .padding(.bottom, 200)
 
-                    // Text fields for user input of notification title and body
                     TextField("Goal name", text: $notificationTitle)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
@@ -32,15 +66,13 @@ struct SomeView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
 
-                    // Date picker to select a specific date and time
                     DatePicker("Select Date and Time", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
                         .datePickerStyle(WheelDatePickerStyle())
                         .labelsHidden()
                         .padding()
 
-                    // Button to schedule a notification
                     Button("Schedule a Notification") {
-                        scheduleNotification() // Calls the function to schedule the notification
+                        scheduleNotification()
                     }
                     .padding()
 
@@ -49,10 +81,10 @@ struct SomeView: View {
                 .navigationBarTitle("")
                 .navigationBarHidden(false)
             }
+            .background(Color.gray.edgesIgnoringSafeArea(.all)) //Set the background color to grey for the entire view
         }
     }
 
-    // Function to schedule the notification based on the user input
     func scheduleNotification() {
         let center = UNUserNotificationCenter.current()
 
@@ -80,7 +112,19 @@ struct SomeView: View {
                 print("Error adding notification request: \(error)")
             } else {
                 print("Notification request added successfully")
+                // Show alert when a notification is scheduled
+                self.showAlert = true
             }
+        }
+    }
+}
+
+struct NotificationListView: View {
+    // Placeholder content for Notification List View
+    var body: some View {
+        NavigationView {
+            Text("Notification List View")
+                .navigationBarTitle("Notifications")
         }
     }
 }

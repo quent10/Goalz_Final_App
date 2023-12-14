@@ -15,54 +15,52 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                
-                ScrollView {
-                    VStack {
-                        Spacer()
-                        Text("Select Your Goal") // Title
-                            .font(.title)
-                        Spacer()
-                        
-                        // Display the selected text in red beneath the title
-                        if !selectedGoal.isEmpty {
-                            Text(selectedGoal)
-                                .foregroundColor(.red)
-                        }
+            ScrollView {
+                VStack {
+                    Spacer()
+                    Text("Select Your Goal") // Title
+                        .font(.title)
+                    Spacer()
+                    
+                    // Display the selected text in red beneath the title
+                    if !selectedGoal.isEmpty {
+                        Text(selectedGoal)
+                            .foregroundColor(.red)
+                    }
 
-                        // Wheel view for displaying segments
-                        Wheel(rotation: $rotation, segments: segments)
-                            .frame(width: 350, height: 350)
-                            .rotationEffect(.radians(rotation))
-                            .animation(.easeInOut(duration: 2.0), value: rotation)
+                    // Wheel view for displaying segments
+                    Wheel(rotation: $rotation, segments: segments)
+                        .frame(width: 350, height: 350)
+                        .rotationEffect(.radians(rotation))
+                        .animation(.easeInOut(duration: 2.0), value: rotation)
 
-                        // Spin button to select a random text field
-                        Button("Spin") {
-                            let randomIndex = Int.random(in: 0..<textFields.count)
-                            selectedGoal = textFields[randomIndex] // Update selectedGoal with a random field
-                            let randomAmount = Double(Int.random(in: 7..<15))
-                            rotation += CGFloat(randomAmount)
-                        }
-                        .buttonStyle(SpinButtonStyle())
-                        .padding(.top, 20)
+                    // Spin button to select a random text field
+                    Button("Spin") {
+                        let randomIndex = Int.random(in: 0..<textFields.count)
+                        selectedGoal = textFields[randomIndex] // Update selectedGoal with a random field
+                        let randomAmount = Double(Int.random(in: 7..<15))
+                        rotation += CGFloat(randomAmount)
+                    }
+                    .buttonStyle(SpinButtonStyle())
+                    .padding(.top, 20)
 
-                        // TextFields for user input
-                        VStack(alignment: .leading, spacing: 10) {
-                            ForEach(0..<5, id: \.self) { index in
-                                TextField("Segment \(index + 1)", text: $textFields[index])
-                                    .padding()
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .onChange(of: textFields[index]) { newValue in
-                                        if !newValue.isEmpty {
-                                            segments[index] = newValue
-                                        }
+                    // TextFields for user input
+                    VStack(alignment: .leading, spacing: 10) {
+                        ForEach(0..<5, id: \.self) { index in
+                            TextField("Segment \(index + 1)", text: $textFields[index])
+                                .padding()
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .onChange(of: textFields[index]) { newValue in
+                                    if !newValue.isEmpty {
+                                        segments[index] = newValue
                                     }
-                            }
+                                }
                         }
                     }
-                    .padding()
                 }
+                .padding()
             }
+            .background(Color.gray.edgesIgnoringSafeArea(.all)) // Set the background color to grey for the entire view
             .navigationTitle("Goalz")
             .navigationBarItems(leading: backButton) // Add custom back button
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))

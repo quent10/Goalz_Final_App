@@ -28,8 +28,8 @@ struct ChartsView: View {
                     ForEach(dataSeries.activityData) { data in
                         LineMark(x: .value("Time", data.year),
                                  y: .value("Activity", data.population))
+                            .foregroundStyle(.black) // Set text color to black
                     }
-                    .foregroundStyle(by: .value("Activity type", dataSeries.type))
                     .symbol(by: .value("Activity type", dataSeries.type))
                 }
                 .chartXScale(domain: 1...7)
@@ -38,13 +38,11 @@ struct ChartsView: View {
                 .aspectRatio(1, contentMode: .fit)
                 .padding()
                 
-                
             }
+            .background(Color.gray.edgesIgnoringSafeArea(.all)) // Set the background color to grey for the entire view
         }
     }
 }
-
-
 
 struct ChartsView_Previews: PreviewProvider {
     static var previews: some View {
