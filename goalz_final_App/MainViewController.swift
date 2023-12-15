@@ -13,40 +13,6 @@ struct SomeView: View {
     @State private var notificationTitle = ""
     @State private var notificationBody = ""
     @State private var showAlert = false // State to control the alert visibility
-    
-    var body: some View {
-        TabView {
-            ContentView()
-                .tabItem {
-                    Label("Goal", systemImage: "circle")
-                }
-            
-            ChartsView()
-                .tabItem {
-                    Label("Progress", systemImage: "flask")
-                }
-            SomeView()
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
-            DateSelectionView()
-                .tabItem {
-                    Label("Date", systemImage: "calendar")
-                }
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text(notificationTitle.isEmpty ? "Walk" : notificationTitle),
-                  message: Text(notificationBody.isEmpty ? "Go for a 5 mile walk?" : notificationBody),
-                  dismissButton: .default(Text("OK")))
-        }
-    }
-}
-
-struct ScheduleView: View {
-    @Binding var selectedDate: Date
-    @Binding var notificationTitle: String
-    @Binding var notificationBody: String
-    @Binding var showAlert: Bool
 
     var body: some View {
         NavigationView {
@@ -83,6 +49,11 @@ struct ScheduleView: View {
             }
             .background(Color.gray.edgesIgnoringSafeArea(.all)) //Set the background color to grey for the entire view
         }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(notificationTitle.isEmpty ? "Walk" : notificationTitle),
+                  message: Text(notificationBody.isEmpty ? "Go for a 5 mile walk?" : notificationBody),
+                  dismissButton: .default(Text("OK")))
+        }
     }
 
     func scheduleNotification() {
@@ -115,16 +86,6 @@ struct ScheduleView: View {
                 // Show alert when a notification is scheduled
                 self.showAlert = true
             }
-        }
-    }
-}
-
-struct NotificationListView: View {
-    // Placeholder content for Notification List View
-    var body: some View {
-        NavigationView {
-            Text("Notification List View")
-                .navigationBarTitle("Notifications")
         }
     }
 }

@@ -62,17 +62,6 @@ struct ContentView: View {
             }
             .background(Color.gray.edgesIgnoringSafeArea(.all)) // Set the background color to grey for the entire view
             .navigationTitle("Goalz")
-            .navigationBarItems(leading: backButton) // Add custom back button
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
-        }
-    }
-
-    // Custom back button
-    var backButton: some View {
-        NavigationLink(destination: SomeView()) {
-            Image(systemName: "arrow.left") // Back arrow icon
-                .imageScale(.large)
-                .padding()
         }
     }
 }

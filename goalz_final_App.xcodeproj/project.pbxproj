@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70193B532B2BD76F00F52B29 /* BeginningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70193B522B2BD76F00F52B29 /* BeginningView.swift */; };
 		7019E36C2B069B0400F43F3E /* DateSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7019E36B2B069B0400F43F3E /* DateSelection.swift */; };
 		7027A7F72AFC836B00234466 /* ActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7027A7F62AFC836B00234466 /* ActivityData.swift */; };
 		7037092B2AFD815F0064F467 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7037092A2AFD815F0064F467 /* MainViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		70193B522B2BD76F00F52B29 /* BeginningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginningView.swift; sourceTree = "<group>"; };
 		7019E36B2B069B0400F43F3E /* DateSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelection.swift; sourceTree = "<group>"; };
 		7027A7F62AFC836B00234466 /* ActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityData.swift; sourceTree = "<group>"; };
 		7037092A2AFD815F0064F467 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				703718A32AE9A7570022A832 /* goalz_final_AppApp.swift */,
 				703718A52AE9A7570022A832 /* ContentView.swift */,
 				70E898C32B03313800A4EBBF /* ChartsView.swift */,
+				70193B522B2BD76F00F52B29 /* BeginningView.swift */,
 				7019E36B2B069B0400F43F3E /* DateSelection.swift */,
 				70ED7E5D2B1679AC00783EC8 /* AllViews.swift */,
 				7027A7F62AFC836B00234466 /* ActivityData.swift */,
@@ -162,6 +165,7 @@
 			files = (
 				703718A62AE9A7570022A832 /* ContentView.swift in Sources */,
 				70ED7E5E2B1679AC00783EC8 /* AllViews.swift in Sources */,
+				70193B532B2BD76F00F52B29 /* BeginningView.swift in Sources */,
 				70C42DE62B0FED0000A7FB63 /* NotificationHandler.swift in Sources */,
 				703718A42AE9A7570022A832 /* goalz_final_AppApp.swift in Sources */,
 				7027A7F72AFC836B00234466 /* ActivityData.swift in Sources */,
