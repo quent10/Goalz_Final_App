@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State var rotation: CGFloat = 0.0
-    @State var segments: [String] = ["Eat 6 banane", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"] // make it display on wheel
-    @State var textFields: [String] = [" Eat 6 banana", "Eat 1 banane", "Build a snowman", "Build a castle", "Meditate"] // make it display in text box
+    @State var segments: [String] = ["Eat fruits", "Workout", "Build a snowman", "Do homework", "Meditate"] // make it display on wheel
+    @State var textFields: [String] = ["Eat fruits", "Workout", "Build a snowman", "Do homework", "Meditate"] // make it display in text box
     @State var selectedGoal: String = "" // state variable to store the selected text
 
     var body: some View {
